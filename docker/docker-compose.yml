@@ -1,0 +1,15 @@
+version: "3.3"
+
+services:
+  pg-database:
+    image: postgres:9.6
+    restart: always
+    container_name: "postgres"
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - TZ=GMT
+    volumes:
+      - "$HOME/docker/database/postgres/9.6:/var/lib/postgresql/data"
+    ports:
+      - 5432:5432
