@@ -7,7 +7,7 @@ const DB_SCHEMA = "schema_name"
 const DB_URL = "postgres://postgres:postgres@" +
 	DB_IP_PORT + "/" + DB_NAME + "?sslmode=disable"
 
-// App Constants
+// Files
 const GENERATED_FOLDER = "_generated/"
 const SQL_STG_FOLDER = GENERATED_FOLDER + "sql.stg/"
 const REPOSITORY_FOLDER = GENERATED_FOLDER + "repository/"
@@ -15,6 +15,7 @@ const DOMAIN_FOLDER = GENERATED_FOLDER + "domain/"
 const SQL_FOLDER = GENERATED_FOLDER + "sql/"
 
 // Pojo and sqlstg
+const DEFAULT_PACKAGE = "br.com.myapp"
 const VERSION_COLUMN_NAME = "version"
 const AUDIT_DATETIME_COLUMN_NAME = "audit_datetime"
 const AUDIT_OPERATION_COLUMN_NAME = "audit_operation"

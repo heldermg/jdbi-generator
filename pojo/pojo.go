@@ -37,7 +37,7 @@ func MakeAbstractClassFiles() {
 		fmt.Println(err)
 	}
 
-	packageImports := "package br.gov.economia.maisbrasil." + constants.DB_SCHEMA + ".domain;\n\n"
+	packageImports := "package " + constants.DEFAULT_PACKAGE + "." + constants.DB_SCHEMA + ".domain;\n\n"
 	packageImports += "import java.time.LocalDateTime;\n"
 	packageImports += "import org.jdbi.v3.core.mapper.reflect.ColumnName;\n"
 
@@ -87,7 +87,7 @@ func MakePojoFile(table Table, className string, columns []Column) {
 }
 
 func getPojoClass(table Table, class string, columns []Column) string {
-	packageImports := "package br.gov.economia.maisbrasil." + constants.DB_SCHEMA + ".domain;\n\n"
+	packageImports := "package " + constants.DEFAULT_PACKAGE + "." + constants.DB_SCHEMA + ".domain;\n\n"
 	packageImports += "import javax.validation.constraints.NotNull;\n"
 	packageImports += "import org.jdbi.v3.core.mapper.reflect.ColumnName;\n"
 	packageImports += "import org.springframework.data.annotation.Id;\n"
@@ -138,7 +138,7 @@ func getPojoClass(table Table, class string, columns []Column) string {
 }
 
 func getMultiplePkClass(class string, columns []Column) {
-	packageImports := "package br.gov.economia.maisbrasil." + constants.DB_SCHEMA + ".domain;\n\n"
+	packageImports := "package " + constants.DEFAULT_PACKAGE + "." + constants.DB_SCHEMA + ".domain;\n\n"
 	packageImports += "import java.io.Serializable;\n"
 	packageImports += "import javax.validation.constraints.NotNull;\n"
 	packageImports += "import org.jdbi.v3.core.mapper.reflect.ColumnName;\n"

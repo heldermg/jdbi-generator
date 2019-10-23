@@ -24,7 +24,7 @@ func MakeAbstractClassFiles() {
 	}
 
 	packageImports := getPackages(false)
-	pojoClass := "\npublic interface AbstractRepository<T, I> {\n\n"
+	pojoClass := "\npublic interface AbstractRepository<T> {\n\n"
 	pojoClass += getFindAll()
 	pojoClass += getSave()
 	pojoClass += getUpdate()
@@ -91,18 +91,22 @@ func getFindAll() (findAll string) {
 }
 
 func getSave() (save string) {
-	save += "    @SqlUpdate\n"
+	save += "    @SqlUpdate(\"save\")\n"
 	save += "    @GetGeneratedKeys\n"
 	save += "    @UseStringTemplateSqlLocator\n"
 	save += "    T save(@BindBean(\"entity\") T entity);\n\n"
+
+	//save += "    default T save() {\n"
 	return
 }
 
 func getUpdate() (update string) {
-	update += "    @SqlUpdate\n"
+	update += "    @SqlUpdate(\"update\")\n"
 	update += "    @GetGeneratedKeys\n"
 	update += "    @UseStringTemplateSqlLocator\n"
 	update += "    T update(@BindBean(\"entity\") T entity);\n\n"
+
+	//update += "    default T update() {\n"
 	return
 }
 
@@ -118,7 +122,7 @@ func getDelete(hasMultiplePK bool) (delete string) {
 }
 
 func getPackages(hasMultiplePK bool) (packageImports string) {
-	packageImports = "package br.gov.economia.maisbrasil." + constants.DB_SCHEMA + ".repository;\n\n"
+	packageImports = "package " + constants.DEFAULT_PACKAGE + "." + constants.DB_SCHEMA + ".repository;\n\n"
 	packageImports += "import java.util.List;\n"
 	packageImports += "import java.util.Optional;\n\n"
 	if !hasMultiplePK {
@@ -148,12 +152,12 @@ func MakeRepositoryFile(table pojo.Table, className string) {
 }
 
 func getRepositoryClass(table pojo.Table, class string) string {
-	repositoryClass := "package br.gov.economia.maisbrasil." + constants.DB_SCHEMA + ".repository;\n\n"
+	repositoryClass := "package " + constants.DEFAULT_PACKAGE + "." + constants.DB_SCHEMA + ".repository;\n\n"
 	repositoryClass += "import org.jdbi.v3.sqlobject.config.RegisterFieldMapper;\n"
 	repositoryClass += "import org.jdbi.v3.sqlobject.statement.SqlQuery;\n"
 	repositoryClass += "import org.jdbi.v3.stringtemplate4.UseStringTemplateSqlLocator;\n"
 	repositoryClass += "import org.springframework.stereotype.Repository;\n\n"
-	repositoryClass += "import br.gov.economia.maisbrasil." + constants.DB_SCHEMA + ".domain." + class + ";\n\n\n"
+	repositoryClass += "import " + constants.DEFAULT_PACKAGE + "." + constants.DB_SCHEMA + ".domain." + class + ";\n\n\n"
 	repositoryClass += "@Repository\n"
 	repositoryClass += "@RegisterFieldMapper(" + class + ".class)\n"
 
