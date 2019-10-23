@@ -88,7 +88,7 @@ func MakeTableConcurrentTrigger(table pojo.Table) {
 	trigger += "-- drop trigger if exists " + constants.CONCURRENT_TRIGGER_PREFIX + table.Name + " on " + constants.DB_SCHEMA + "." + table.Name + ";\n"
 	trigger += "create trigger " + constants.CONCURRENT_TRIGGER_PREFIX + table.Name + "\n"
 	trigger += "before delete or update on " + constants.DB_SCHEMA + "." + table.Name + "\n"
-	trigger += "for each row execute procedure " + constants.GENREIC_CONCURRENT_FN_NAME + "();\n\n"
+	trigger += "for each row execute procedure " + constants.DB_SCHEMA + "." + constants.GENREIC_CONCURRENT_FN_NAME + "();\n\n"
 
 	arquivo.WriteString(trigger)
 	arquivo.Close()
@@ -150,7 +150,7 @@ func MakeTableAuditTrigger(table pojo.Table) {
 	trigger += "-- drop trigger if exists " + constants.AUDIT_TRIGGER_PREFIX + table.Name + " on " + constants.DB_SCHEMA + "." + table.Name + ";\n"
 	trigger += "create trigger " + constants.AUDIT_TRIGGER_PREFIX + table.Name + "\n"
 	trigger += "after insert or delete or update on " + constants.DB_SCHEMA + "." + table.Name + "\n"
-	trigger += "for each row execute procedure " + constants.GENERIC_AUDIT_FN_NAME + "();\n\n"
+	trigger += "for each row execute procedure " + constants.DB_SCHEMA + "." + constants.GENERIC_AUDIT_FN_NAME + "();\n\n"
 
 	arquivo.WriteString(trigger)
 	arquivo.Close()
