@@ -6,6 +6,7 @@ import (
 
 	"github.com/heldermg/jdbi-generator/constants"
 	"github.com/heldermg/jdbi-generator/pojo"
+	"github.com/heldermg/jdbi-generator/util"
 )
 
 func MakeAbstractClassFiles() {
@@ -94,9 +95,22 @@ func getSave() (save string) {
 	save += "    @SqlUpdate(\"save\")\n"
 	save += "    @GetGeneratedKeys\n"
 	save += "    @UseStringTemplateSqlLocator\n"
-	save += "    T save(@BindBean(\"entity\") T entity);\n\n"
+	save += "    T saveEntity(@BindBean(\"entity\") T entity);\n\n"
 
-	//save += "    default T save() {\n"
+	save += "    default T save(T entity) {\n"
+	save += "       if (entity instanceof AbstractPojoAuditVersion) {\n"
+	save += "          AbstractPojoAuditVersion pojo = (AbstractPojoAuditVersion) entity;\n"
+	save += "          pojo.set" + util.MakeFirstUpperCase(util.SnakeCaseToCamelCase(constants.AUDIT_DATETIME_COLUMN_NAME)) + "(LocalDateTime.now());\n"
+	save += "          pojo.set" + util.MakeFirstUpperCase(util.SnakeCaseToCamelCase(constants.AUDIT_OPERATION_COLUMN_NAME)) + "(\"INSERT\");\n\n"
+
+	save += "          Optional<String> userLogin = SecurityUtils.getCurrentUserLogin();\n"
+	save += "          if (userLogin.isPresent()) {\n"
+	save += "             pojo.set" + util.MakeFirstUpperCase(util.SnakeCaseToCamelCase(constants.AUDIT_LOGIN_COLUMN_NAME)) + "(userLogin.get());\n"
+	save += "          }\n"
+	save += "       }\n"
+	save += "       entity = saveEntity(entity);\n"
+	save += "       return entity;\n"
+	save += "    }\n"
 	return
 }
 
@@ -104,9 +118,22 @@ func getUpdate() (update string) {
 	update += "    @SqlUpdate(\"update\")\n"
 	update += "    @GetGeneratedKeys\n"
 	update += "    @UseStringTemplateSqlLocator\n"
-	update += "    T update(@BindBean(\"entity\") T entity);\n\n"
+	update += "    T updateEntity(@BindBean(\"entity\") T entity);\n\n"
 
-	//update += "    default T update() {\n"
+	update += "    default T update(T entity) {\n"
+	update += "       if (entity instanceof AbstractPojoAuditVersion) {\n"
+	update += "          AbstractPojoAuditVersion pojo = (AbstractPojoAuditVersion) entity;\n"
+	update += "          pojo.set" + util.MakeFirstUpperCase(util.SnakeCaseToCamelCase(constants.AUDIT_DATETIME_COLUMN_NAME)) + "(LocalDateTime.now());\n"
+	update += "          pojo.set" + util.MakeFirstUpperCase(util.SnakeCaseToCamelCase(constants.AUDIT_OPERATION_COLUMN_NAME)) + "(\"UPDATE\");\n\n"
+
+	update += "          Optional<String> userLogin = SecurityUtils.getCurrentUserLogin();\n"
+	update += "          if (userLogin.isPresent()) {\n"
+	update += "             pojo.set" + util.MakeFirstUpperCase(util.SnakeCaseToCamelCase(constants.AUDIT_LOGIN_COLUMN_NAME)) + "(userLogin.get());\n"
+	update += "          }\n"
+	update += "       }\n"
+	update += "       entity = updateEntity(entity);\n"
+	update += "       return entity;\n"
+	update += "    }\n"
 	return
 }
 
@@ -123,6 +150,7 @@ func getDelete(hasMultiplePK bool) (delete string) {
 
 func getPackages(hasMultiplePK bool) (packageImports string) {
 	packageImports = "package " + constants.DEFAULT_PACKAGE + "." + constants.DB_SCHEMA + ".repository;\n\n"
+	packageImports += "import java.time.LocalDateTime;\n"
 	packageImports += "import java.util.List;\n"
 	packageImports += "import java.util.Optional;\n\n"
 	if !hasMultiplePK {
@@ -133,6 +161,7 @@ func getPackages(hasMultiplePK bool) (packageImports string) {
 	packageImports += "import org.jdbi.v3.sqlobject.statement.SqlQuery;\n"
 	packageImports += "import org.jdbi.v3.sqlobject.statement.SqlUpdate;\n"
 	packageImports += "import org.jdbi.v3.stringtemplate4.UseStringTemplateSqlLocator;\n"
+	packageImports += "import " + constants.DEFAULT_PACKAGE + "." + constants.DB_SCHEMA + ".domain.AbstractPojoAuditVersion;\n\n"
 	return
 }
 
