@@ -2,8 +2,8 @@ package constants
 
 // DB constants
 const DB_IP_PORT = "localhost:5432"
-const DB_NAME = "db_name"
-const DB_SCHEMA = "schema_name"
+const DB_NAME = "postgres"
+const DB_SCHEMA = "myschema"
 const DB_URL = "postgres://postgres:postgres@" +
 	DB_IP_PORT + "/" + DB_NAME + "?sslmode=disable"
 
