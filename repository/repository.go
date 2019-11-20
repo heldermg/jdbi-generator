@@ -103,7 +103,7 @@ func getSave() (save string) {
 	save += "          pojo.set" + util.MakeFirstUpperCase(util.SnakeCaseToCamelCase(constants.AUDIT_DATETIME_COLUMN_NAME)) + "(LocalDateTime.now());\n"
 	save += "          pojo.set" + util.MakeFirstUpperCase(util.SnakeCaseToCamelCase(constants.AUDIT_OPERATION_COLUMN_NAME)) + "(\"INSERT\");\n\n"
 
-	save += "          Optional<String> userLogin = SecurityUtils.getCurrentUserLogin();\n"
+	save += "          Optional<String> userLogin = getCurrentUserLogin();\n"
 	save += "          if (userLogin.isPresent()) {\n"
 	save += "             pojo.set" + util.MakeFirstUpperCase(util.SnakeCaseToCamelCase(constants.AUDIT_LOGIN_COLUMN_NAME)) + "(userLogin.get());\n"
 	save += "          }\n"
@@ -126,7 +126,7 @@ func getUpdate() (update string) {
 	update += "          pojo.set" + util.MakeFirstUpperCase(util.SnakeCaseToCamelCase(constants.AUDIT_DATETIME_COLUMN_NAME)) + "(LocalDateTime.now());\n"
 	update += "          pojo.set" + util.MakeFirstUpperCase(util.SnakeCaseToCamelCase(constants.AUDIT_OPERATION_COLUMN_NAME)) + "(\"UPDATE\");\n\n"
 
-	update += "          Optional<String> userLogin = SecurityUtils.getCurrentUserLogin();\n"
+	update += "          Optional<String> userLogin = getCurrentUserLogin();\n"
 	update += "          if (userLogin.isPresent()) {\n"
 	update += "             pojo.set" + util.MakeFirstUpperCase(util.SnakeCaseToCamelCase(constants.AUDIT_LOGIN_COLUMN_NAME)) + "(userLogin.get());\n"
 	update += "          }\n"
