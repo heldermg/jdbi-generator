@@ -15,10 +15,6 @@ import (
 	_ "github.com/lib/pq"
 )
 
-/*
- * Por padrão gera para todas as classes do schema com exceção das tabelas começadas por jhi* e database*
- * Use o filtro abaixo se desejar gerar apenas para tabelas específicas.
- */
 var TABLES_FILTER []string
 
 func main() {
@@ -101,17 +97,17 @@ func main() {
 				trigger.MakeTableConcurrentTrigger(table)
 			}
 
-			// Gerar arquivo <class>Repository.sql.stg
+			// Generate <class>Repository.sql.stg files
 			if makeSqls {
 				sqlstg.MakeSqlStgFile(table, columns, class)
 			}
 
-			// Gerar arquivo <class>Repository.java
+			// Generate <class>Repository.java files
 			if makeRepositories {
 				repository.MakeRepositoryFile(table, class)
 			}
 
-			// Gerar arquivo <class>.java (pojo)
+			// Generate <class>.java (pojo) files
 			if makePojos {
 				pojo.MakePojoFile(table, class, columns)
 			}

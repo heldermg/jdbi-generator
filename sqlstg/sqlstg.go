@@ -204,14 +204,14 @@ func getAuditDatetimeColumnSql(columnName string, isUpdateMathod bool) string {
 	return sql
 }
 
-func getAuditOperationColumnSql(columnName string, isUpdateMathod bool) string {
+func getAuditOperationColumnSql(columnName string, isUpdateMethod bool) string {
 	sql := ""
 	if columnName == constants.AUDIT_OPERATION_COLUMN_NAME {
 		sql += "        "
-		if isUpdateMathod {
-			sql += columnName + " = 'ATUALIZACAO'"
+		if isUpdateMethod {
+			sql += columnName + " = 'UPDATE'"
 		} else {
-			sql += "'INSERCAO'"
+			sql += "'INSERT'"
 		}
 	}
 	return sql
