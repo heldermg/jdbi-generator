@@ -56,7 +56,7 @@ func MakeAbstractClassFiles() {
 
 	attName = util.MakeFirstLowerCase(util.SnakeCaseToCamelCase(constants.AUDIT_OPERATION_COLUMN_NAME))
 	pojoClass += "    @ColumnName(\"" + constants.AUDIT_OPERATION_COLUMN_NAME + "\")\n"
-	pojoClass += "    private String " + attName + " = \"INSERCAO\";\n\n"
+	pojoClass += "    private String " + attName + " = \"INSERT\";\n\n"
 	getterSetter += getGettersSetters(attName, "String")
 
 	attName = util.MakeFirstLowerCase(util.SnakeCaseToCamelCase(constants.VERSION_COLUMN_NAME))
@@ -105,7 +105,6 @@ func getPojoClass(table Table, class string, columns []Column) string {
 			if table.HasMultiplePK {
 				pojoClass += "    private " + class + "Id id;\n\n"
 				getterSetter += getGettersSetters("id", class+"Id")
-				//gerar classe '<class>Id.java'
 				getMultiplePkClass(class+"Id", columns)
 				continue
 			}
