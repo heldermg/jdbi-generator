@@ -45,7 +45,7 @@ func getById(table string) string {
 		"    select \n" +
 		"        * \n" +
 		"    from \n" +
-		"        " + table + " \n" +
+		"        " + constants.DB_SCHEMA + "." + table + " \n" +
 		"    where \n" +
 		"        id = :id \n" +
 		"%>\n\n"
@@ -57,7 +57,7 @@ func getByComplexId(table string, columns []pojo.Column) string {
 		"    select \n" +
 		"        * \n" +
 		"    from \n" +
-		"        " + table + " \n" +
+		"        " + constants.DB_SCHEMA + "." + table + " \n" +
 		"    where \n"
 
 	connector := ""
@@ -81,14 +81,14 @@ func findAll(table string) string {
 		"    select \n" +
 		"        * \n" +
 		"    from \n" +
-		"        " + table + " \n" +
+		"        " + constants.DB_SCHEMA + "." + table + " \n" +
 		"%>\n\n"
 	return sql
 }
 
 func deleteById(table string) string {
 	sql := "deleteById(id) ::= <% \n" +
-		"    delete from " + table + " \n" +
+		"    delete from " + constants.DB_SCHEMA + "." + table + " \n" +
 		"    where \n" +
 		"        id = :id \n" +
 		"%>\n\n"
@@ -97,7 +97,7 @@ func deleteById(table string) string {
 
 func deleteByComplexId(table string, columns []pojo.Column) string {
 	sql := "deleteByComplexId(id) ::= <% \n" +
-		"    delete from " + table + " \n" +
+		"    delete from " + constants.DB_SCHEMA + "." + table + " \n" +
 		"    where \n"
 
 	connector := ""
@@ -118,7 +118,7 @@ func deleteByComplexId(table string, columns []pojo.Column) string {
 
 func save(table string, columns []pojo.Column) string {
 	sql := "save(entity) ::= <% \n" +
-		"    insert into " + table + " ( \n"
+		"    insert into " + constants.DB_SCHEMA + "." + table + " ( \n"
 
 	// Se o primeiro campo for 'id', o mesmo possui sequence então não precisa incluir no save
 	posicaoInicial := 0
@@ -156,7 +156,7 @@ func save(table string, columns []pojo.Column) string {
 
 func update(table string, columns []pojo.Column) string {
 	sql := "update(entity) ::= <% \n" +
-		"    update " + table + " set \n"
+		"    update " + constants.DB_SCHEMA + "." + table + " set \n"
 
 	// Se o primeiro campo for 'id', ignora chave
 	for i := 0; i < len(columns); i++ {

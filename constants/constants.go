@@ -19,7 +19,7 @@ const DEFAULT_PACKAGE = "br.com.myapp"
 const VERSION_COLUMN_NAME = "version"
 const AUDIT_DATETIME_COLUMN_NAME = "audit_datetime"
 const AUDIT_OPERATION_COLUMN_NAME = "audit_operation"
-const AUDIT_LOGIN_COLUMN_NAME = "audit_login"
+const AUDIT_USER_COLUMN_NAME = "audit_user"
 
 // Triggers
 const GENREIC_CONCURRENT_FN_NAME = "fn_generic_concurrent"

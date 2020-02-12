@@ -2,6 +2,7 @@ package util
 
 import (
 	"bytes"
+	"fmt"
 	"strings"
 )
 
@@ -52,12 +53,13 @@ type JavaType struct {
 }
 
 func DbTypeToJavaType(dbType string) (javaType JavaType) {
+	fmt.Println(dbType)
 	if dbType == "bigint" {
 		javaType.Type = "Long"
 		javaType.Imports = ""
 		return
 	}
-	if dbType == "character varying" {
+	if dbType == "character varying" || dbType == "text" || dbType == "character" {
 		javaType.Type = "String"
 		javaType.Imports = ""
 		return
@@ -79,6 +81,16 @@ func DbTypeToJavaType(dbType string) (javaType JavaType) {
 	}
 	if dbType == "integer" || dbType == "smallint" {
 		javaType.Type = "Integer"
+		javaType.Imports = ""
+		return
+	}
+	if dbType == "double precision" {
+		javaType.Type = "Double"
+		javaType.Imports = ""
+		return
+	}
+	if dbType == "real" {
+		javaType.Type = "Float"
 		javaType.Imports = ""
 		return
 	}

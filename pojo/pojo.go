@@ -44,8 +44,8 @@ func MakeAbstractClassFiles() {
 	pojoClass := "\npublic abstract class AbstractPojoAuditVersion implements Serializable {\n\n"
 	pojoClass += "    private static final long serialVersionUID = 1L;\n\n"
 
-	attName := util.MakeFirstLowerCase(util.SnakeCaseToCamelCase(constants.AUDIT_LOGIN_COLUMN_NAME))
-	pojoClass += "    @ColumnName(\"" + constants.AUDIT_LOGIN_COLUMN_NAME + "\")\n"
+	attName := util.MakeFirstLowerCase(util.SnakeCaseToCamelCase(constants.AUDIT_USER_COLUMN_NAME))
+	pojoClass += "    @ColumnName(\"" + constants.AUDIT_USER_COLUMN_NAME + "\")\n"
 	pojoClass += "    private String " + attName + " = \"admim\";\n\n"
 	getterSetter := getGettersSetters(attName, "String")
 
@@ -114,7 +114,7 @@ func getPojoClass(table Table, class string, columns []Column) string {
 			(column.IsPrimaryKey.Valid && !table.HasMultiplePK)) &&
 			column.Name != constants.AUDIT_DATETIME_COLUMN_NAME &&
 			column.Name != constants.AUDIT_OPERATION_COLUMN_NAME &&
-			column.Name != constants.AUDIT_LOGIN_COLUMN_NAME &&
+			column.Name != constants.AUDIT_USER_COLUMN_NAME &&
 			column.Name != constants.VERSION_COLUMN_NAME {
 
 			javaType := util.DbTypeToJavaType(column.DataType)

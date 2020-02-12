@@ -105,7 +105,7 @@ func getSave() (save string) {
 
 	save += "          Optional<String> userLogin = getCurrentUserLogin();\n"
 	save += "          if (userLogin.isPresent()) {\n"
-	save += "             pojo.set" + util.MakeFirstUpperCase(util.SnakeCaseToCamelCase(constants.AUDIT_LOGIN_COLUMN_NAME)) + "(userLogin.get());\n"
+	save += "             pojo.set" + util.MakeFirstUpperCase(util.SnakeCaseToCamelCase(constants.AUDIT_USER_COLUMN_NAME)) + "(userLogin.get());\n"
 	save += "          }\n"
 	save += "       }\n"
 	save += "       entity = saveEntity(entity);\n"
@@ -128,7 +128,7 @@ func getUpdate() (update string) {
 
 	update += "          Optional<String> userLogin = getCurrentUserLogin();\n"
 	update += "          if (userLogin.isPresent()) {\n"
-	update += "             pojo.set" + util.MakeFirstUpperCase(util.SnakeCaseToCamelCase(constants.AUDIT_LOGIN_COLUMN_NAME)) + "(userLogin.get());\n"
+	update += "             pojo.set" + util.MakeFirstUpperCase(util.SnakeCaseToCamelCase(constants.AUDIT_USER_COLUMN_NAME)) + "(userLogin.get());\n"
 	update += "          }\n"
 	update += "       }\n"
 	update += "       entity = updateEntity(entity);\n"
