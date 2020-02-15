@@ -17,9 +17,14 @@ const SQL_FOLDER = GENERATED_FOLDER + "sql/"
 // Pojo and sqlstg
 const DEFAULT_PACKAGE = "br.com.myapp"
 const VERSION_COLUMN_NAME = "version"
+const VERSION_COLUMN_COMMENT = "Current record version identifier"
+const AUDIT_PK_COLUMN_COMMENT = "Audit table unique identifier"
 const AUDIT_DATETIME_COLUMN_NAME = "audit_datetime"
+const AUDIT_DATETIME_COLUMN_COMMENT = "Operation date/time"
 const AUDIT_OPERATION_COLUMN_NAME = "audit_operation"
+const AUDIT_OPERATION_COLUMN_COMMENT = "Operation action (INSERT, UPDATE, DELETE)"
 const AUDIT_USER_COLUMN_NAME = "audit_user"
+const AUDIT_USER_COLUMN_COMMENT = "Operation user"
 
 // Triggers
 const GENREIC_CONCURRENT_FN_NAME = "fn_generic_concurrent"

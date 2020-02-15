@@ -14,6 +14,7 @@ type Column struct {
 	Name         string
 	IsNullable   string
 	DataType     string
+	DataLength   sql.NullInt64
 	IsPrimaryKey sql.NullString
 }
 

@@ -2,7 +2,6 @@ package util
 
 import (
 	"bytes"
-	"fmt"
 	"strings"
 )
 
@@ -53,7 +52,6 @@ type JavaType struct {
 }
 
 func DbTypeToJavaType(dbType string) (javaType JavaType) {
-	fmt.Println(dbType)
 	if dbType == "bigint" {
 		javaType.Type = "Long"
 		javaType.Imports = ""

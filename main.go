@@ -9,6 +9,7 @@ import (
 	"github.com/heldermg/jdbi-generator/constants"
 	"github.com/heldermg/jdbi-generator/pojo"
 	"github.com/heldermg/jdbi-generator/repository"
+	"github.com/heldermg/jdbi-generator/sqlaudit"
 	"github.com/heldermg/jdbi-generator/sqlstg"
 	"github.com/heldermg/jdbi-generator/trigger"
 	"github.com/heldermg/jdbi-generator/util"
@@ -31,6 +32,7 @@ func main() {
 		showMenu()
 		option := getOption()
 
+		makeSqlAuditSchema := false
 		makeSqls := false
 		makeRepositories := false
 		makePojos := false
@@ -46,6 +48,7 @@ func main() {
 			continue
 
 		case 2:
+			makeSqlAuditSchema = true
 			makeSqls = true
 			makeRepositories = true
 			makePojos = true
@@ -63,10 +66,17 @@ func main() {
 		case 6:
 			makeTriggers = true
 
+		case 7:
+			makeSqlAuditSchema = true
+
 		default:
 			fmt.Println("Option not found!")
 			fmt.Println("")
 			continue
+		}
+
+		if makeSqlAuditSchema {
+			sqlaudit.MakeAuditSchemaSqlFile(tables)
 		}
 
 		if makeRepositories {
@@ -131,6 +141,7 @@ func showMenu() {
 	fmt.Println("4- Generate only *Repository.java files")
 	fmt.Println("5- Generate only pojo *.java files")
 	fmt.Println("6- Generate audit and concurrent triggers")
+	fmt.Println("7- Generate audit schema script")
 }
 
 func getOption() int {
